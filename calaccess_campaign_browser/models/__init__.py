@@ -1,14 +1,14 @@
-from contributions import Contribution
-from elections import (
+from calaccess_campaign_browser.models.contributions import Contribution
+from calaccess_campaign_browser.models.elections import (
     Election,
     Candidate,
     Office,
     Proposition,
     PropositionFiler
 )
-from expenditures import Expenditure
-from filers import Filer, Committee
-from filings import Filing, Cycle, Summary
+from calaccess_campaign_browser.models.expenditures import Expenditure
+from calaccess_campaign_browser.models.filers import Filer, Committee
+from calaccess_campaign_browser.models.filings import Filing, Cycle, Summary
 
 __all__ = (
     'Contribution',
