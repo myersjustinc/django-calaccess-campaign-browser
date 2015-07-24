@@ -5,6 +5,7 @@ from optparse import make_option
 
 from django.conf import settings
 from django.db.models import get_model
+import six
 from calaccess_campaign_browser.management.commands import CalAccessCommand
 
 from calaccess_campaign_browser.models import Cycle
@@ -48,7 +49,9 @@ class Command(CalAccessCommand):
         Take a list of lists, and encode each list item as utf-8
         http://stackoverflow.com/a/17527101/868724
         """
-        return [[unicode(s).encode('utf-8') for s in t] for t in list_of_lists]
+        return [
+            [six.text_type(s).encode('utf-8') for s in t]
+            for t in list_of_lists]
 
     def export_to_csv(self, model_name):
         self.header('Exporting models ...')

@@ -171,7 +171,7 @@ class Command(CalAccessCommand):
                     self.cursor.execute(sql)
                     self.log('      loading {} ID:{} ...'.format(
                         model_name, row[0]))
-                except pypyodbc.Error, e:
+                except pypyodbc.Error as e:
                     self.failure('      Encountered an arror')
                     raise e
 

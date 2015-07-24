@@ -6,6 +6,7 @@ import csv
 import json
 from django.http import HttpResponse
 from django.core.serializers.json import DjangoJSONEncoder
+import six
 from tastypie.serializers import Serializer
 
 
@@ -39,7 +40,7 @@ class CIRCustomSerializer(Serializer):
         writer.writerow(data['objects'][0].keys())
         for item in data['objects']:
             writer.writerow(
-                [unicode(item[key]).encode('utf-8', 'replace')
+                [six.text_type(item[key]).encode('utf-8', 'replace')
                  for key
                  in item.keys()]
             )

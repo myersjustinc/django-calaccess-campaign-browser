@@ -1,6 +1,7 @@
 import json
 from django.db import models
 from django.db.models import Sum
+import six
 from calaccess_campaign_browser import managers
 from calaccess_campaign_browser.utils.models import BaseModel
 from calaccess_campaign_browser.models import Contribution, Expenditure
@@ -17,7 +18,7 @@ class Cycle(BaseModel):
         app_label = 'calaccess_campaign_browser'
 
     def __unicode__(self):
-        return unicode(self.name)
+        return six.text_type(self.name)
 
 
 class Filing(models.Model):
@@ -52,7 +53,7 @@ or was filed unnecessarily. Should be excluded from most analysis."
         app_label = 'calaccess_campaign_browser'
 
     def __unicode__(self):
-        return unicode(self.filing_id_raw)
+        return six.text_type(self.filing_id_raw)
 
     @models.permalink
     def get_absolute_url(self):
@@ -199,7 +200,7 @@ class Summary(BaseModel):
         app_label = 'calaccess_campaign_browser'
 
     def __unicode__(self):
-        return unicode(self.filing_id_raw)
+        return six.text_type(self.filing_id_raw)
 
     @property
     def cycle(self):

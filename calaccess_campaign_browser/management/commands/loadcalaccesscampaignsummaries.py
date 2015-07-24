@@ -87,16 +87,16 @@ class Command(CalAccessCommand):
                 grouped[uid][field] = self.safeamt(r['AMOUNT_A'])
             except KeyError:
                 grouped[uid] = SortedDict((
-                    ("itemized_monetary_contributions", "\N"),
-                    ("unitemized_monetary_contributions", "\N"),
-                    ("total_monetary_contributions", "\N"),
-                    ("non_monetary_contributions", "\N"),
-                    ("total_contributions", "\N"),
-                    ("itemized_expenditures", "\N"),
-                    ("unitemized_expenditures", "\N"),
-                    ("total_expenditures", "\N"),
-                    ("ending_cash_balance", "\N"),
-                    ("outstanding_debts", "\N")
+                    ("itemized_monetary_contributions", "\\N"),
+                    ("unitemized_monetary_contributions", "\\N"),
+                    ("total_monetary_contributions", "\\N"),
+                    ("non_monetary_contributions", "\\N"),
+                    ("total_contributions", "\\N"),
+                    ("itemized_expenditures", "\\N"),
+                    ("unitemized_expenditures", "\\N"),
+                    ("total_expenditures", "\\N"),
+                    ("ending_cash_balance", "\\N"),
+                    ("outstanding_debts", "\\N")
                 ))
                 grouped[uid][field] = self.safeamt(r['AMOUNT_A'])
         self.log("  Writing to filesystem")
@@ -122,5 +122,5 @@ class Command(CalAccessCommand):
 
     def safeamt(self, num):
         if not num:
-            return "\N"
+            return "\\N"
         return num
