@@ -1,7 +1,9 @@
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 from calaccess_campaign_browser.utils.models import BaseModel
 
 
+@python_2_unicode_compatible
 class Election(BaseModel):
     """
     A grouping of election contests administered by the state.
@@ -32,7 +34,7 @@ class Election(BaseModel):
         ordering = ('-sort_index',)
         app_label = 'calaccess_campaign_browser'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     @property
@@ -57,6 +59,7 @@ class Election(BaseModel):
         return self.candidate_set.count()
 
 
+@python_2_unicode_compatible
 class Office(BaseModel):
     """
     An office that is at stake in an election contest.
@@ -88,10 +91,10 @@ class Office(BaseModel):
         ordering = ('name', 'seat',)
         app_label = 'calaccess_campaign_browser'
 
-    def __unicode__(self):
-        s = u'%s' % (self.get_name_display(),)
+    def __str__(self):
+        s = self.get_name_display()
         if self.seat:
-            s = u'%s (%s)' % (s, self.seat)
+            s = '%s (%s)' % (s, self.seat)
         return s
 
     @property
@@ -109,6 +112,7 @@ class Office(BaseModel):
         return self.candidate_set.count()
 
 
+@python_2_unicode_compatible
 class Candidate(BaseModel):
     """
     Links filers to the contests and elections where they are on the ballot.
@@ -121,8 +125,8 @@ class Candidate(BaseModel):
         ordering = ("election", "office", "filer")
         app_label = 'calaccess_campaign_browser'
 
-    def __unicode__(self):
-        return u'%s: %s [%s]' % (self.filer, self.office, self.election)
+    def __str__(self):
+        return '%s: %s [%s]' % (self.filer, self.office, self.election)
 
     @property
     def election_year(self):
@@ -133,6 +137,7 @@ class Candidate(BaseModel):
         return self.election.get_election_type_display()
 
 
+@python_2_unicode_compatible
 class Proposition(BaseModel):
     """
     A proposition or ballot measure decided by voters.
@@ -147,7 +152,7 @@ class Proposition(BaseModel):
         ordering = ("election", "name")
         app_label = 'calaccess_campaign_browser'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     @property
@@ -157,6 +162,7 @@ class Proposition(BaseModel):
         return self.description
 
 
+@python_2_unicode_compatible
 class PropositionFiler(BaseModel):
     """
     The relationship between filers and propositions.
@@ -175,5 +181,5 @@ class PropositionFiler(BaseModel):
     class Meta:
         app_label = 'calaccess_campaign_browser'
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s %s' % (self.proposition, self.filer)

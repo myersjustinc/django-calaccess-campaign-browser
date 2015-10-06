@@ -1,6 +1,7 @@
 import json
 from django.db import models
 from django.db.models import Sum
+from django.utils.encoding import python_2_unicode_compatible
 import six
 from calaccess_campaign_browser import managers
 from calaccess_campaign_browser.utils.models import BaseModel
@@ -10,6 +11,7 @@ from calaccess_campaign_browser.templatetags.calaccesscampaignbrowser import (
 )
 
 
+@python_2_unicode_compatible
 class Cycle(BaseModel):
     name = models.IntegerField(db_index=True, primary_key=True)
 
@@ -17,10 +19,11 @@ class Cycle(BaseModel):
         ordering = ("-name",)
         app_label = 'calaccess_campaign_browser'
 
-    def __unicode__(self):
+    def __str__(self):
         return six.text_type(self.name)
 
 
+@python_2_unicode_compatible
 class Filing(models.Model):
     cycle = models.ForeignKey('Cycle')
     committee = models.ForeignKey('Committee')
@@ -52,7 +55,7 @@ or was filed unnecessarily. Should be excluded from most analysis."
     class Meta:
         app_label = 'calaccess_campaign_browser'
 
-    def __unicode__(self):
+    def __str__(self):
         return six.text_type(self.filing_id_raw)
 
     @models.permalink
@@ -128,6 +131,7 @@ or was filed unnecessarily. Should be excluded from most analysis."
             ).aggregate(total=Sum('amount'))['total']
 
 
+@python_2_unicode_compatible
 class Summary(BaseModel):
     """
     A set of summary totals provided by a filing's cover sheet.
@@ -199,7 +203,7 @@ class Summary(BaseModel):
         verbose_name_plural = "summaries"
         app_label = 'calaccess_campaign_browser'
 
-    def __unicode__(self):
+    def __str__(self):
         return six.text_type(self.filing_id_raw)
 
     @property

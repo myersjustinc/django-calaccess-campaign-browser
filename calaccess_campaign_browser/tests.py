@@ -17,7 +17,7 @@ class ModelTest(TestCase):
             status='A',
             effective_date=datetime.now()
         )
-        obj.__unicode__()
+        obj.__str__()
         obj.slug
         obj.real_filings
         obj.total_contributions
@@ -50,7 +50,7 @@ class ModelTest(TestCase):
             level_of_government='40502',
             effective_date=filer.effective_date,
         )
-        committee.__unicode__()
+        committee.__str__()
 
     def test_cycle(self):
         pass

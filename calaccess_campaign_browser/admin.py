@@ -176,7 +176,7 @@ class ElectionAdmin(BaseAdmin):
 @admin.register(models.Office)
 class OfficeAdmin(BaseAdmin):
     list_display = (
-        "__unicode__",
+        "__str__",
         "election_count",
         "candidate_count",
     )

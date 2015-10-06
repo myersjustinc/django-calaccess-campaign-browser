@@ -1,6 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import title
 from django.utils.datastructures import SortedDict
+from django.utils.encoding import python_2_unicode_compatible
 from calaccess_campaign_browser.templatetags.calaccesscampaignbrowser import (
     jsonify
 )
@@ -30,6 +31,7 @@ class BaseModel(models.Model):
         return jsonify(self)
 
 
+@python_2_unicode_compatible
 class AllCapsNameMixin(BaseModel):
     """
     Abstract model with name cleaners we can reuse across models.
@@ -37,7 +39,7 @@ class AllCapsNameMixin(BaseModel):
     class Meta:
         abstract = True
 
-    def __unicode__(self):
+    def __str__(self):
         return self.clean_name
 
     @property
