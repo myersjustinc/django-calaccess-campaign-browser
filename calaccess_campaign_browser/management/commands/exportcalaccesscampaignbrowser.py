@@ -1,8 +1,8 @@
 import os
-import csv
 import datetime
 from optparse import make_option
 
+from csvkit import CSVKitWriter
 from django.conf import settings
 from django.db.models import get_model
 import six
@@ -79,8 +79,8 @@ class Command(CalAccessCommand):
 
         self.header('  Exporting {} model ...'.format(model_name.capitalize()))
 
-        with open(filepath, 'wb') as csvfile:
-            writer = csv.writer(csvfile, delimiter="\t")
+        with open(filepath, 'w') as csvfile:
+            writer = CSVKitWriter(csvfile, delimiter="\t")
             writer.writerow(fieldnames)
 
             if model_name != 'summary':

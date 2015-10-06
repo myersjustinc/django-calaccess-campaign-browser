@@ -1,4 +1,4 @@
-import csv
+from csvkit import CSVKitDictWriter
 import json
 from django.views import generic
 from django.http import HttpResponse
@@ -49,7 +49,7 @@ class CSVResponseMixin(DataPrepMixin):
         data, fields = self.prep_context_for_serialization(context)
         response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = 'attachment; filename=download.csv'
-        writer = csv.DictWriter(response, fieldnames=fields)
+        writer = CSVKitDictWriter(response, fieldnames=fields)
         writer.writeheader()
         [writer.writerow(i) for i in data]
         return response

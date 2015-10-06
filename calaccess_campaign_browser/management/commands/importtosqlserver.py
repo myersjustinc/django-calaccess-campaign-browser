@@ -1,11 +1,11 @@
 import os
 import re
-import csv
 import fnmatch
 from optparse import make_option
 
 import pypyodbc
 
+from csvkit import CSVKitReader
 from django.conf import settings
 from django.db import connection
 from django.db.models import get_model
@@ -154,7 +154,7 @@ class Command(CalAccessCommand):
             raise NotImplementedError
 
         with open(csv_[0]) as csvfile:
-            reader = csv.reader(csvfile, delimiter='\t')
+            reader = CSVKitReader(csvfile, delimiter='\t')
             reader.next()  # skip headers
 
             for row in reader:

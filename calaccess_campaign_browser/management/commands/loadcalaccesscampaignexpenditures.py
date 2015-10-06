@@ -1,10 +1,10 @@
 import os
-import csv
 import copy
 import tempfile
 import warnings
 from optparse import make_option
 
+from csvkit import CSVKitDictReader, CSVKitDictWriter
 import MySQLdb
 
 from django.db import connection
@@ -184,14 +184,14 @@ class Command(CalAccessCommand):
         # `rU` is read Universal
         # see: https://docs.python.org/2/library/functions.html#open
         with open(self.quarterly_tmp_csv, 'rU') as fin:
-            fout = csv.DictWriter(
-                open(self.quarterly_target_csv, 'wb'),
+            fout = CSVKitDictWriter(
+                open(self.quarterly_target_csv, 'w'),
                 fieldnames=OUTHEADERS
             )
             fout.writeheader()
             last_uid = ''
 
-            reader = csv.DictReader(fin, fieldnames=INHEADERS)
+            reader = CSVKitDictReader(fin, fieldnames=INHEADERS)
 
             for row in reader:
                 row.pop(None, None)

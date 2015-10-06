@@ -1,5 +1,5 @@
 import os
-import csv
+from csvkit import CSVKitDictReader, CSVKitDictWriter
 import copy
 import MySQLdb
 import warnings
@@ -151,13 +151,13 @@ class Command(CalAccessCommand):
 
         self.log("   Marking duplicates in a new CSV")
         with open(self.late_tmp_csv, 'r') as fin:
-            fout = csv.DictWriter(
-                open(self.late_target_csv, 'wb'),
+            fout = CSVKitDictWriter(
+                open(self.late_target_csv, 'w'),
                 fieldnames=OUTHEADERS
             )
             fout.writeheader()
             last_uid = ''
-            for r in csv.DictReader(fin, fieldnames=INHEADERS):
+            for r in CSVKitDictReader(fin, fieldnames=INHEADERS):
                 r.pop(None, None)
                 uid = '%s-%s' % (r['FILING_ID'], r['TRAN_ID'])
                 if uid != last_uid:
@@ -504,13 +504,13 @@ class Command(CalAccessCommand):
 
         self.log("   Marking duplicates in a new CSV")
         with open(self.quarterly_tmp_csv, 'r') as fin:
-            fout = csv.DictWriter(
-                open(self.quarterly_target_csv, 'wb'),
+            fout = CSVKitDictWriter(
+                open(self.quarterly_target_csv, 'w'),
                 fieldnames=OUTHEADERS
             )
             fout.writeheader()
             last_uid = ''
-            for r in csv.DictReader(fin, fieldnames=INHEADERS):
+            for r in CSVKitDictReader(fin, fieldnames=INHEADERS):
                 r.pop(None, None)
                 uid = '%s-%s' % (r['FILING_ID'], r['TRAN_ID'])
                 if uid != last_uid:

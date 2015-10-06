@@ -1,7 +1,7 @@
 import os
-import csv
 import MySQLdb
 import warnings
+from csvkit import CSVKitDictReader, CSVKitWriter
 from django.db import connection
 from calaccess_raw import get_download_directory
 from django.utils.datastructures import SortedDict
@@ -76,7 +76,7 @@ class Command(CalAccessCommand):
             'E-6': 'total_expenditures',
         }
         self.log("  Regrouping")
-        for r in csv.DictReader(open(self.source_csv, 'rb')):
+        for r in CSVKitDictReader(open(self.source_csv, 'r')):
             uid = "%s-%s" % (r['FILING_ID'], r['AMEND_ID'])
             formkey = "%s-%s" % (r['FORM_TYPE'], r['LINE_ITEM'])
             try:
@@ -100,7 +100,7 @@ class Command(CalAccessCommand):
                 ))
                 grouped[uid][field] = self.safeamt(r['AMOUNT_A'])
         self.log("  Writing to filesystem")
-        out = csv.writer(open(self.target_csv, "wb"))
+        out = CSVKitWriter(open(self.target_csv, "w"))
         outheaders = (
             "filing_id_raw",
             "amend_id",

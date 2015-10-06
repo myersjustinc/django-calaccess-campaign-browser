@@ -2,7 +2,7 @@
 Tastypie serializer class for CSV exports and pretty priting JSON
 Use it as a starting point for other custom serializers in a project
 """
-import csv
+from csvkit import CSVKitWriter
 import json
 from django.http import HttpResponse
 from django.core.serializers.json import DjangoJSONEncoder
@@ -35,7 +35,7 @@ class CIRCustomSerializer(Serializer):
         response = HttpResponse()
         options = options or {}
         data = self.to_simple(data, options)
-        writer = csv.writer(response)
+        writer = CSVKitWriter(response)
 
         writer.writerow(data['objects'][0].keys())
         for item in data['objects']:

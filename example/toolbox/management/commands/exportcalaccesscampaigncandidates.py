@@ -28,7 +28,7 @@ class Command(CalAccessCommand):
             filer=models.Filer._meta.db_table,
         )
         self.cursor.execute(sql)
-        writer = CSVKitWriter(open("./candidates.csv", 'wb'))
+        writer = CSVKitWriter(open("./candidates.csv", 'w'))
         writer.writerow([
             'office_name',
             'office_seat',
