@@ -16,7 +16,7 @@ boto==2.28.0
 bottle==0.12.7
 coverage==3.7.1
 csvkit==0.9.1
-dbf==0.95.012
+dbf==0.96.005
 django-appconf==0.6
 django-bakery==0.6.4
 -e git+ssh://git@github.com/california-civic-data-coalition/django-calaccess-raw-data.git@HEAD#egg=django-calaccess-raw-data
