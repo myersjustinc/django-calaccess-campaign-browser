@@ -1,19 +1,19 @@
-from committees import (
+from calaccess_campaign_browser.views.committees import (
     CommitteeDetailView,
     CommitteeContributionView,
     CommitteeExpenditureView,
     CommitteeFilingView,
 )
-from contributions import ContributionDetailView
-from expenditures import ExpenditureDetailView
-from filings import (
+from calaccess_campaign_browser.views.contributions import ContributionDetailView
+from calaccess_campaign_browser.views.expenditures import ExpenditureDetailView
+from calaccess_campaign_browser.views.filings import (
     LatestFilingView,
     FilerListView,
     FilingDetailView,
     FilerDetailView,
 )
-from search import SearchList
-from parties import PartyListView
+from calaccess_campaign_browser.views.search import SearchList
+from calaccess_campaign_browser.views.parties import PartyListView
 
 __all__ = (
     'CommitteeDetailView',
