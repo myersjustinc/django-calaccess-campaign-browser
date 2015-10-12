@@ -1,6 +1,6 @@
 import re
-import urlparse
 from time import sleep
+from six.moves.urllib import parse
 from calaccess_campaign_browser.management.commands import ScrapeCommand
 from calaccess_campaign_browser.models import (
     Election,
@@ -19,7 +19,7 @@ class Command(ScrapeCommand):
     def build_results(self):
         self.header("Scraping election candidates")
 
-        url = urlparse.urljoin(
+        url = parse.urljoin(
             self.base_url,
             '/Campaign/Candidates/list.aspx?view=certified&electNav=93'
         )
@@ -38,7 +38,7 @@ class Command(ScrapeCommand):
         results = []
         for i, link in enumerate(links):
             # .. go and get each page and its data
-            url = urlparse.urljoin(self.base_url, link["href"])
+            url = parse.urljoin(self.base_url, link["href"])
             data = self.scrape_page(url)
             # Parse out the name and year
             data['raw_name'] = link.find_next_sibling('span').text.strip()

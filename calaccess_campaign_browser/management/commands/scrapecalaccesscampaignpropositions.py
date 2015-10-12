@@ -1,7 +1,7 @@
 import re
-import urlparse
 from time import sleep
 from datetime import datetime
+from six.moves.urllib import parse
 from calaccess_campaign_browser.management.commands import ScrapeCommand
 from calaccess_campaign_browser.models import (
     Filer,
@@ -23,7 +23,7 @@ the CAL-ACCESS site"
 
         # Build the link list from the 2013 page because otherwise the
         # other years are hidden under the "Historical" link.
-        url = urlparse.urljoin(
+        url = parse.urljoin(
             self.base_url,
             'Campaign/Measures/list.aspx?session=2013'
         )
@@ -35,7 +35,7 @@ the CAL-ACCESS site"
 
         results = []
         for link in links:
-            link = urlparse.urljoin(self.base_url, link)
+            link = parse.urljoin(self.base_url, link)
             data = self.scrape_year_page(link)
             # Parse the year from the URL
             data['year'] = int(re.match(r'.+session=(\d+)', link).group(1))
@@ -91,7 +91,7 @@ the CAL-ACCESS site"
             # Scrape them one by one
             prop_list = [
                 self.scrape_prop_page(
-                    urlparse.urljoin(
+                    parse.urljoin(
                         self.base_url,
                         '/Campaign/Measures/%s' % link['href'],
                     )
