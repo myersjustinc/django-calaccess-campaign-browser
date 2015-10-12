@@ -117,7 +117,7 @@ class Command(CalAccessCommand):
         )
         out.writerow(outheaders)
         for uid, data in grouped.items():
-            outrow = uid.split("-") + data.values()
+            outrow = uid.split("-") + list(data.values())
             out.writerow(outrow)
 
     def safeamt(self, num):
